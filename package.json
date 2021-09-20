@@ -1,24 +1,24 @@
 {
-  "name": "parcel-1.12.5-lite",
+  "name": "goit-js-hw-13-image-finder",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://Eduard-Konovka.github.io/parcel-1.12.5-lite",
+  "homepage": "https://Eduard-Konovka.github.io/goit-js-hw-13-image-finder",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /parcel-1.12.5-lite/",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eduard-Konovka/parcel-1.12.5-lite.git"
+    "url": "git+https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder.git"
   },
   "keywords": [],
   "author": "Eduard Konovka <ed098ua@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Eduard-Konovka/parcel-1.12.5-lite/issues"
+    "url": "https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder/issues"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5",

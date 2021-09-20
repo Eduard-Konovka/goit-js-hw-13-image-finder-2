@@ -4,11 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Application to search and view images by keyword</title>
     <link rel="icon" type="image/png" href="./images/favicon.png" sizes="32x32" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="./sass/styles.css" />
   </head>
   <body>
+    <form class="search-form" id="search-form">
+      <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
+    </form>
+
+    <ul class="gallery">
+      <!-- Список <li> с карточками изображений -->
+    </ul>
+
     <script src="./index.js"></script>
   </body>
 </html>
