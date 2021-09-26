@@ -14,9 +14,14 @@
       <input type="text" name="query" autocomplete="off" placeholder="Search images..." />
     </form>
 
-    <ul class="gallery">
+    <ul class="gallery js-gallery">
       <!-- Список <li> с карточками изображений -->
     </ul>
+
+    <button type="button" class="btn btn-primary button" data-action="load-more">
+      <span class="spinner-border spinner-border-sm spinner is-hidden" role="status" aria-hidden="true"></span>
+      <span class="label">Load more</span>
+    </button>
 
     <script src="./index.js"></script>
   </body>
