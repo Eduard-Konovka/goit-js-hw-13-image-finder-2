@@ -55,7 +55,7 @@ img {
 }
 
 /* Gallery List */
-.gallery {
+.gallery-item {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
@@ -69,8 +69,8 @@ img {
   margin-bottom: 30px;
 }
 
-.gallery li {
-  height: 450px;
+.photo-card {
+  height: 250px;
   overflow: hidden;
 }
 
@@ -84,4 +84,13 @@ img {
 .gallery a {
   text-decoration: none;
   color: #2a2a2a;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+}
+
+.stats-item {
+  margin: 5px;
 }

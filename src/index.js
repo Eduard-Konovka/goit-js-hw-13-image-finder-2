@@ -1,7 +1,6 @@
 import imageCardTpl from './templates/imageCardTpl.hbs'
 import fetchImages from './js/apiService'
 import refs from './js/refs'
-// import './js/func'
 import './js/listeners'
 
 import { alert, notice, info, success, error, defaultModules } from '@pnotify/core/dist/PNotify.js'
@@ -32,7 +31,7 @@ export function onSearch(e) {
 
 export function onLoadMore(e) {
   page += 1
-  fetchImages(searchQuery, page).then(createGalleryImages).then(scrollNextPage).catch(onFetchError)
+  fetchImages(searchQuery, page).then(createGalleryImages).catch(onFetchError)
 }
 
 function createGalleryImages(images) {
@@ -42,15 +41,12 @@ function createGalleryImages(images) {
     return
   }
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  success({ text: 'The gallery is completed!' })
-  console.log(images)
-}
-
-function scrollNextPage() {
-  refs.loadMoreBtn.scrollIntoView({
+  refs.imagesContainer.lastElementChild.setAttribute('id', page)
+  document.getElementById(page).scrollIntoView({
     behavior: 'smooth',
     block: 'end',
   })
+  success({ text: 'The gallery is completed!' })
 }
 
 function onFetchError(err) {
