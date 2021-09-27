@@ -4,10 +4,11 @@ export default {
   searchQuery: '',
   page: 1,
 
-  fetchArticles() {
+  async fetchArticles() {
     const url = `${URL.BASE_URL}/?image_type=${URL.IMAGE_TYPE}&orientation=${URL.ORIENTATION}&q=${this.searchQuery}&page=${this.page}&per_page=${URL.QUANTITY_PER_PAGE}&key=${URL.KEY}`
 
-    return fetch(url).then(response => response.json())
+    const response = await fetch(url)
+    return await response.json()
   },
 
   incrementPage() {
