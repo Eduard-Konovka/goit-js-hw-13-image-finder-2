@@ -43,6 +43,7 @@ export function onSearch(e) {
 
   if (imagesApiService.query === ' ') {
     refs.imagesContainer.innerHTML = ''
+    loadMoreBtn.hide()
     info({ text: 'Too many matches found. Please enter a more specific query!' })
     e.target.value = ''
     return
@@ -63,6 +64,7 @@ export function onLoadMore(e) {
 function createGalleryImages(images) {
   if (images.total === 0) {
     refs.imagesContainer.innerHTML = ''
+    loadMoreBtn.hide()
     alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
     return
   }
@@ -78,5 +80,6 @@ function createGalleryImages(images) {
 
 function onFetchError(err) {
   refs.imagesContainer.innerHTML = ''
+  loadMoreBtn.hide()
   error({ text: 'Server error \n Please try again later' })
 }
