@@ -73,7 +73,7 @@ img {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .photo-card {
@@ -97,8 +97,14 @@ img {
 .stats {
   display: flex;
   justify-content: center;
+  padding-top: 5px;
 }
 
 .stats-item {
-  margin: 5px;
+  display: flex;
+  margin: 7px;
+}
+
+.stats-item > i {
+  margin: 2px;
 }
