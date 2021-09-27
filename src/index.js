@@ -60,7 +60,7 @@ function createGalleryImages(images) {
     behavior: 'smooth',
     block: 'center',
   })
-  success({ text: 'The gallery is completed!' })
+  success({ text: 'Upload successful!' })
 }
 
 function onFetchError(err) {
