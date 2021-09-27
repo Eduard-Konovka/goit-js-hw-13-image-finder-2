@@ -1,23 +1,36 @@
 import imageCardTpl from './templates/imageCardTpl.hbs'
 import refs from './js/refs'
-import ImagesApiService from './js/apiService'
+
+// --- Либо для дефолтного экспорта объекта отвечающего за логику HTTP-запросов к API ---
+import imagesApiService from './js/apiService'
+
+// --- Либо для дефолтного экспорта объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
+// import ImagesApiService from './js/apiServicePlagin'
+
+// --- Дефолтный экспорт объекта-экземпляра класса кнопки загрузки следующей страницы ---
 import LoadMoreBtn from './js/load-more-btn'
 
+// --- Подключение плагина нотификации PNotify ---
 import { alert, notice, info, success, error, defaultModules } from '@pnotify/core/dist/PNotify.js'
 import * as PNotifyMobile from '@pnotify/mobile/dist/PNotifyMobile.js'
 import '@pnotify/core/dist/PNotify.css'
 import '@pnotify/core/dist/BrightTheme.css'
 defaultModules.set(PNotifyMobile, {})
+// --- Настройка плагина нотификации PNotify ---
 import { defaults } from '@pnotify/core'
 defaults.width = '400px'
 defaults.delay = '3000'
 
-const imagesApiService = new ImagesApiService()
+// --- Создание объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
+// const imagesApiService = new ImagesApiService()
+
+// --- Создание объекта-экземпляра класса кнопки загрузки следующей страницы ---
 export const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
   hidden: true,
 })
 
+// --- Подключение плагина debounce ---
 var debounce = require('lodash.debounce')
 
 refs.searchForm.addEventListener('input', debounce(onSearch, 1000))
