@@ -1,5 +1,5 @@
 import imageCardTpl from './templates/imageCardTpl.hbs'
-import fetchImages from './js/apiService'
+import ImagesApiService from './js/apiService'
 import refs from './js/refs'
 import './js/listeners'
 
@@ -13,25 +13,25 @@ defaults.width = '300px'
 defaults.delay = '3000'
 defaults.minHeight = '86px'
 
-let searchQuery = ''
-let page = 1
+const imagesApiService = new ImagesApiService()
 
 export function onSearch(e) {
   refs.imagesContainer.innerHTML = ''
-  searchQuery = e.target.value
-  if (searchQuery === ' ') {
+  // imagesApiService.resetPage()
+  imagesApiService.query = e.target.value
+  if (imagesApiService.query === ' ') {
     refs.imagesContainer.innerHTML = ''
     info({ text: 'Too many matches found. Please enter a more specific query!' })
     e.target.value = ''
     return
   }
-  fetchImages(searchQuery, page).then(createGalleryImages).catch(onFetchError)
+  imagesApiService.fetchArticles().then(createGalleryImages).catch(onFetchError)
   e.target.value = ''
 }
 
 export function onLoadMore(e) {
-  page += 1
-  fetchImages(searchQuery, page).then(createGalleryImages).catch(onFetchError)
+  imagesApiService.incrementPage()
+  imagesApiService.fetchArticles().then(createGalleryImages).catch(onFetchError)
 }
 
 function createGalleryImages(images) {
@@ -41,8 +41,8 @@ function createGalleryImages(images) {
     return
   }
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  refs.imagesContainer.lastElementChild.setAttribute('id', page)
-  document.getElementById(page).scrollIntoView({
+  refs.imagesContainer.lastElementChild.setAttribute('id', imagesApiService.page)
+  document.getElementById(imagesApiService.page).scrollIntoView({
     behavior: 'smooth',
     block: 'end',
   })
