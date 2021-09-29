@@ -29,7 +29,7 @@ defaults.delay = '3000'
 const debounce = require('lodash.debounce')
 
 // --- Подключение плагина лайтбокса basicLightbox ---
-const basicLightbox = require('basiclightbox') // import * as basicLightbox from 'basiclightbox'
+// const basicLightbox = require('basiclightbox') // import * as basicLightbox from 'basiclightbox'
 
 // --- Создание объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
 // const imagesApiService = new ImagesApiService()
