@@ -1,10 +1,13 @@
+// --- Импорт шаблона ---
 import imageCardTpl from './templates/imageCardTpl.hbs'
+
+// --- Импорт ссылок на DOM ---
 import refs from './js/refs'
 
-// --- Либо для дефолтного экспорта объекта отвечающего за логику HTTP-запросов к API ---
+// --- Дефолтный экспорт объекта отвечающего за логику HTTP-запросов к API ---
 import imagesApiService from './js/apiService'
 
-// --- Либо для дефолтного экспорта объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
+// --- Дефолтный экспорт объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
 // import ImagesApiService from './js/apiServicePlagin'
 
 // --- Дефолтный экспорт объекта-экземпляра класса кнопки загрузки следующей страницы ---
@@ -16,10 +19,17 @@ import * as PNotifyMobile from '@pnotify/mobile/dist/PNotifyMobile.js'
 import '@pnotify/core/dist/PNotify.css'
 import '@pnotify/core/dist/BrightTheme.css'
 defaultModules.set(PNotifyMobile, {})
+
 // --- Настройка плагина нотификации PNotify ---
 import { defaults } from '@pnotify/core'
 defaults.width = '400px'
 defaults.delay = '3000'
+
+// --- Подключение плагина debounce ---
+const debounce = require('lodash.debounce')
+
+// --- Подключение плагина лайтбокса basicLightbox ---
+const basicLightbox = require('basiclightbox') // import * as basicLightbox from 'basiclightbox'
 
 // --- Создание объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
 // const imagesApiService = new ImagesApiService()
@@ -30,9 +40,7 @@ export const loadMoreBtn = new LoadMoreBtn({
   hidden: true,
 })
 
-// --- Подключение плагина debounce ---
-var debounce = require('lodash.debounce')
-
+// --- Слушатели событий ---
 refs.searchForm.addEventListener('input', debounce(onSearch, 1000))
 loadMoreBtn.refs.button.addEventListener('click', onLoadMore)
 
@@ -68,6 +76,7 @@ function createGalleryImages(images) {
     alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
     return
   }
+
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
   refs.imagesContainer.lastElementChild.setAttribute('id', imagesApiService.page)
   loadMoreBtn.enable()
