@@ -67,6 +67,7 @@ function onSearch(e) {
   if (imagesApiService.searchQuery.length < 1) {
     refs.imagesContainer.innerHTML = ''
     info({ text: 'Too many matches found. Please enter a more specific query!' })
+    e.target.value = ''
     return
   }
 
