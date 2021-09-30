@@ -1,24 +1,24 @@
 {
-  "name": "goit-js-hw-13-image-finder",
+  "name": "goit-js-hw-13-image-finder-2",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://Eduard-Konovka.github.io/goit-js-hw-13-image-finder",
+  "homepage": "https://Eduard-Konovka.github.io/goit-js-hw-13-image-finder-2",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder-2/",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder.git"
+    "url": "git+https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder-2.git"
   },
   "keywords": [],
   "author": "Eduard Konovka <ed098ua@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder/issues"
+    "url": "https://github.com/Eduard-Konovka/goit-js-hw-13-image-finder-2/issues"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.5",
@@ -31,6 +31,7 @@
     "@pnotify/core": "^5.2.0",
     "@pnotify/mobile": "^5.2.0",
     "gh-pages": "^3.2.3",
+    "infinite-scroll": "^4.0.1",
     "lodash.debounce": "^4.0.8",
     "pnotify": "^5.2.0"
   }
