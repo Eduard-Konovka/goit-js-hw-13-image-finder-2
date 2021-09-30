@@ -28,7 +28,7 @@ const debounce = require('lodash.debounce')
 // --- Создание объекта-экземпляра класса отвечающего за логику HTTP-запросов к API ---
 const imagesApiService = new ImagesApiService()
 
-// --- Слушатели событий ---
+// --- Слушатель событий ---
 refs.searchForm.addEventListener('input', debounce(onSearch, 1000))
 
 // --- Intersection Observer ---
@@ -59,12 +59,12 @@ function removeObserver(data) {
 
 // --- Функции рендеринга изображений ---
 
-export function onSearch(e) {
+function onSearch(e) {
   refs.imagesContainer.innerHTML = ''
   imagesApiService.resetPage()
-  imagesApiService.query = e.target.value
+  imagesApiService.query = e.target.value.trim()
 
-  if (imagesApiService.query === ' ') {
+  if (imagesApiService.searchQuery.length < 1) {
     refs.imagesContainer.innerHTML = ''
     info({ text: 'Too many matches found. Please enter a more specific query!' })
     e.target.value = ''
@@ -75,7 +75,7 @@ export function onSearch(e) {
   e.target.value = ''
 }
 
-export function onLoadMore() {
+function onLoadMore() {
   imagesApiService.incrementPage()
   imagesApiService.fetchCards().then(removeObserver).then(createGalleryImages).then(setObserver).catch(onFetchError)
 }
