@@ -17,7 +17,7 @@ defaultModules.set(PNotifyMobile, {})
 // --- Настройка плагина нотификации PNotify ---
 import { defaults } from '@pnotify/core'
 defaults.width = '400px'
-defaults.delay = '3000'
+defaults.delay = '1000'
 
 // --- Подключение плагина debounce ---
 const debounce = require('lodash.debounce')
@@ -71,27 +71,65 @@ function onSearch(e) {
     return
   }
 
-  imagesApiService.fetchCards().then(createGalleryImages).then(setObserver).catch(onFetchError)
+  imagesApiService
+    .fetchCards()
+    // .then(checksServerErrors)
+    .then(checksNumberOfImages)
+    .then(checksQuantityOnPage)
+    .then(createGalleryImages)
+    .then(setObserver)
+    .catch(onFetchError)
   e.target.value = ''
 }
 
 function onLoadMore() {
   imagesApiService.incrementPage()
-  imagesApiService.fetchCards().then(removeObserver).then(createGalleryImages).then(setObserver).catch(onFetchError)
+  removeObserver()
+  imagesApiService
+    .fetchCards()
+    .then(removeObserver)
+    // .then(checksServerErrors)
+    .then(checksQuantityOnPage)
+    .then(createGalleryImages)
+    .then(setObserver)
+    .catch(onFetchError)
+}
+
+// function checksServerErrors(images) {
+//   console.log('images.status: ', images.status)
+//   console.log('images.total: ', images.total)
+//   if (images.status > 500) {
+//     refs.imagesContainer.innerHTML = ''
+//     console.log('images.status: ', images.status)
+//     throw error({ text: 'Server error \n Please try again later' })
+//   }
+
+//   return images
+// }
+
+function checksNumberOfImages(images) {
+  if (images.total === 0) {
+    refs.imagesContainer.innerHTML = ''
+    console.log('images.total: ', images.total)
+    throw alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
+  }
+
+  return images
+}
+
+function checksQuantityOnPage(images) {
+  if (images.hits.length === 12) {
+    return images
+  }
+
+  console.log('images.hits.length: ', images.hits.length)
+  refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
+  throw notice({ text: 'No more images!' })
 }
 
 function createGalleryImages(images) {
-  if (images.total === 0) {
-    refs.imagesContainer.innerHTML = ''
-    alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
-    return
-  }
-
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
   success({ text: 'Upload successful!' })
 }
 
-function onFetchError(err) {
-  refs.imagesContainer.innerHTML = ''
-  error({ text: 'Server error \n Please try again later' })
-}
+function onFetchError() {}
