@@ -17,7 +17,7 @@ defaultModules.set(PNotifyMobile, {})
 // --- Настройка плагина нотификации PNotify ---
 import { defaults } from '@pnotify/core'
 defaults.width = '400px'
-defaults.delay = '1000'
+defaults.delay = '2000'
 
 // --- Подключение плагина debounce ---
 const debounce = require('lodash.debounce')
@@ -89,8 +89,8 @@ function onLoadMore() {
     .fetchCards()
     .then(removeObserver)
     // .then(checksServerErrors)
+    .then(checksQuantityOnTotalHits)
     .then(createGalleryImages)
-    .then(checksQuantityOnPage)
     .then(setObserver)
     .catch(onFetchError)
 }
@@ -122,12 +122,20 @@ function checksQuantityOnPage(images) {
   }
 
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  throw notice({ text: 'No more images!' })
+  throw (success({ text: 'Upload successful!' }), notice({ text: 'No more images!' }))
+}
+
+function checksQuantityOnTotalHits(images) {
+  if (refs.imagesContainer.children.length < 492) {
+    return images
+  }
+
+  refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
+  throw (success({ text: 'Upload successful!' }), notice({ text: 'No more images!' }))
 }
 
 function createGalleryImages(images) {
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  success({ text: 'Upload successful!' })
   return images
 }
 
