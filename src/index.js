@@ -89,8 +89,8 @@ function onLoadMore() {
     .fetchCards()
     .then(removeObserver)
     // .then(checksServerErrors)
-    .then(checksQuantityOnPage)
     .then(createGalleryImages)
+    .then(checksQuantityOnPage)
     .then(setObserver)
     .catch(onFetchError)
 }
@@ -110,7 +110,6 @@ function onLoadMore() {
 function checksNumberOfImages(images) {
   if (images.total === 0) {
     refs.imagesContainer.innerHTML = ''
-    console.log('images.total: ', images.total)
     throw alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
   }
 
@@ -122,7 +121,6 @@ function checksQuantityOnPage(images) {
     return images
   }
 
-  console.log('images.hits.length: ', images.hits.length)
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
   throw notice({ text: 'No more images!' })
 }
@@ -130,6 +128,7 @@ function checksQuantityOnPage(images) {
 function createGalleryImages(images) {
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
   success({ text: 'Upload successful!' })
+  return images
 }
 
 function onFetchError() {}
