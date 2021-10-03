@@ -1,3 +1,6 @@
+// --- Импорт настроек ---
+import settingsURL from './js/settings'
+
 // --- Импорт шаблона ---
 import imageCardTpl from './templates/imageCardTpl.hbs'
 
@@ -117,21 +120,22 @@ function checksNumberOfImages(images) {
 }
 
 function checksQuantityOnPage(images) {
-  if (images.hits.length === 12) {
+  if (images.hits.length === settingsURL.QUANTITY_PER_PAGE) {
     return images
   }
 
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  throw (success({ text: 'Upload successful!' }), notice({ text: 'No more images!' }))
+  throw success({ text: 'Upload successful!' })
 }
 
 function checksQuantityOnTotalHits(images) {
-  if (refs.imagesContainer.children.length < 492) {
+  const totalHits = settingsURL.QUANTITY_PER_PAGE * Math.floor(images.totalHits / settingsURL.QUANTITY_PER_PAGE)
+  if (refs.imagesContainer.children.length < totalHits) {
     return images
   }
 
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  throw (success({ text: 'Upload successful!' }), notice({ text: 'No more images!' }))
+  throw notice({ text: 'No more images!' })
 }
 
 function createGalleryImages(images) {
