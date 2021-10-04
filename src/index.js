@@ -1,3 +1,6 @@
+// --- Импорт стилей ---
+import './sass/styles.css'
+
 // --- Импорт настроек ---
 import settingsURL from './js/settings'
 
