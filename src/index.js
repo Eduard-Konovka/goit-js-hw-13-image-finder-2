@@ -76,7 +76,6 @@ function onSearch(e) {
 
   imagesApiService
     .fetchCards()
-    // .then(checksServerErrors)
     .then(checksNumberOfImages)
     .then(checksQuantityOnPage)
     .then(createGalleryImages)
@@ -91,29 +90,16 @@ function onLoadMore() {
   imagesApiService
     .fetchCards()
     .then(removeObserver)
-    // .then(checksServerErrors)
     .then(checksQuantityOnTotalHits)
     .then(createGalleryImages)
     .then(setObserver)
     .catch(onFetchError)
 }
 
-// function checksServerErrors(images) {
-//   console.log('images.status: ', images.status)
-//   console.log('images.total: ', images.total)
-//   if (images.status > 500) {
-//     refs.imagesContainer.innerHTML = ''
-//     console.log('images.status: ', images.status)
-//     throw error({ text: 'Server error \n Please try again later' })
-//   }
-
-//   return images
-// }
-
 function checksNumberOfImages(images) {
   if (images.total === 0) {
     refs.imagesContainer.innerHTML = ''
-    throw alert({ text: 'Check the correctness of the entered data, images of this category do not exist!' })
+    throw 'Check the correctness of the entered data, images of this category do not exist!'
   }
 
   return images
@@ -125,7 +111,7 @@ function checksQuantityOnPage(images) {
   }
 
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  throw success({ text: 'Upload successful!' })
+  throw 'Upload successful!'
 }
 
 function checksQuantityOnTotalHits(images) {
@@ -135,7 +121,7 @@ function checksQuantityOnTotalHits(images) {
   }
 
   refs.imagesContainer.insertAdjacentHTML('beforeend', imageCardTpl(images))
-  throw notice({ text: 'No more images!' })
+  throw 'No more images!'
 }
 
 function createGalleryImages(images) {
@@ -143,4 +129,14 @@ function createGalleryImages(images) {
   return images
 }
 
-function onFetchError() {}
+function onFetchError(message) {
+  if (message === 'Check the correctness of the entered data, images of this category do not exist!') {
+    alert({ text: message })
+  } else if (message === 'No more images!') {
+    notice({ text: message })
+  } else if (message === 'Upload successful!') {
+    success({ text: message })
+  } else {
+    error({ text: 'Server error \n Please try again later' })
+  }
+}
